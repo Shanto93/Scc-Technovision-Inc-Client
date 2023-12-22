@@ -4,6 +4,9 @@ import {
 import Main from "../layout/Main/Main";
 import Home from "../pages/Home/Home";
 import ContactUs from "../pages/ContactUs/ContactUs";
+import Login from "../pages/Login/Login";
+import Register from "../pages/Login/Register";
+import PrivateRoute from './PrivateRoute';
 
    export const router = createBrowserRouter([
     {
@@ -16,7 +19,15 @@ import ContactUs from "../pages/ContactUs/ContactUs";
         },
         {
           path: 'contactUs',
-          element: <ContactUs></ContactUs>,
+          element: <PrivateRoute><ContactUs></ContactUs></PrivateRoute>,
+        },
+        {
+          path: 'login',
+          element: <Login></Login>
+        },
+        {
+          path: 'register',
+          element: <Register></Register>
         }
       ]
     },

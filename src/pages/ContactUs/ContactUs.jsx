@@ -33,7 +33,7 @@ const ContactUs = () => {
                                     <label className="label">
                                         <span className="label-text">Last Name</span>
                                     </label>
-                                    <input type="text" name="photo" placeholder="Last Name" className="input input-bordered" required />
+                                     <input type="text" name="photo" placeholder="Last Name" className="input input-bordered" required />
                                 </div>
                                 <div className="form-control md:w-1/3">
                                     <label className="label">
