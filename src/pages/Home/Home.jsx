@@ -1,7 +1,11 @@
+import Banner from "./Banner/Banner";
+import PeopleUsing from "./PeopleUsing/PeopleUsing";
+
 const Home = () => {
     return (
         <div>
-            <h2>This is home apge</h2>
+            <Banner></Banner>
+            <PeopleUsing></PeopleUsing>
         </div>
     );
 };

@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import { FcGoogle } from 'react-icons/fc';
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import login from './../../assets/login.jpg';
 
 
 const Login = () => {
@@ -96,7 +97,7 @@ const Login = () => {
     return (
         <div>
 
-            <div className="hero min-h-screen bg-base-200" style={{ backgroundImage: 'url("https://i.postimg.cc/W4NVHJ3x/medical-camp-banner.jpg")' }}>
+            <div className="hero min-h-screen bg-base-200" style={{ backgroundImage: `url(${login})` }}>
                 <div className="hero-content flex-col md:flex-row-reverse">
                     <div className="text-center">
                     </div>

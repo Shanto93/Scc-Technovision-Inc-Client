@@ -1,20 +1,22 @@
-// import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from './../assets/logo.png';
-// import { AuthContext } from "../providers/AuthProvider";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const NavBar = () => {
-    // const { user, logOut } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
+    const navigate = useNavigate();
 
-    // const handleLogOut = () => {
-    //     logOut()
-    //     .then(result =>{
-    //         console.log(result.user)
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //     })
-    // }
+    const handleLogOut = () => {
+        logOut()
+            .then(result => {
+                console.log(result.user);
+                navigate('/');
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
 
 
     const links = <>
@@ -22,11 +24,11 @@ const NavBar = () => {
 
         <li><NavLink to='/contactUs' className={({ isActive }) => isActive ? 'btn bg-[#11e4a5] border-0 text-white ml-3 font-bold hover:bg-[#6aaf9a] btn-sm' : 'btn btn-ghost btn-sm'}>Contact Us</NavLink></li>
 
-        <li><NavLink to='/dashboard' className={({ isActive }) => isActive ? 'btn bg-[#11e4a5] border-0 text-white ml-3 font-bold hover:bg-[#6aaf9a] btn-sm' : 'btn btn-ghost btn-sm'}>Dashboard</NavLink></li>
-
-        <li><NavLink to='/login' className={({ isActive }) => isActive ? 'btn bg-[#11e4a5] border-0 text-white ml-3 font-bold hover:bg-[#6aaf9a] btn-sm' : 'btn btn-ghost btn-sm'}>Login</NavLink></li>
-
+        {
+            user && <li><NavLink to='/dashboard' className={({ isActive }) => isActive ? 'btn bg-[#11e4a5] border-0 text-white ml-3 font-bold hover:bg-[#6aaf9a] btn-sm' : 'btn btn-ghost btn-sm'}>Dashboard</NavLink></li>
+        }
     </>
+
     return (
         <div className="navbar bg-opacity-30 bg-black text-white max-w-screen-lg">
             <div className="navbar-start">
@@ -47,7 +49,7 @@ const NavBar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                {/* {
+                {
                     user ?
 
                         <div className="dropdown dropdown-hover dropdown-end">
@@ -69,7 +71,7 @@ const NavBar = () => {
 
                         :
                         ''
-                } */}
+                }
             </div>
         </div>
     );
