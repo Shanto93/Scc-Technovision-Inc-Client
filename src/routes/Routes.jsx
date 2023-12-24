@@ -50,7 +50,8 @@ import AllTasks from "../pages/Dashboard/AllTasks/AllTasks";
         },
         {
           path: 'allTasks',
-          element: <PrivateRoute><AllTasks></AllTasks></PrivateRoute>
+          element: <PrivateRoute><AllTasks></AllTasks></PrivateRoute>,
+          loader: () => fetch('http://localhost:5001/tasks'),
         }
       ]
     }
