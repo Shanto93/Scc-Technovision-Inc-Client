@@ -1,11 +1,63 @@
 /* eslint-disable react/prop-types */
+import { FaTrash, FaEdit } from "react-icons/fa";
+import useTasks from "../../../../hooks/useTasks";
+import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+
+
 const ToDoLayout = ({ task }) => {
-    const { title, description, priority } = task;
+    const { _id, title, description, priority, deadline } = task;
+
+    const [tasks, , refetch] = useTasks();
+    const axiosPublic = useAxiosPublic();
+
+    const handleDelete = (_id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const res = await axiosPublic.delete(`/tasks/${_id}`);
+                console.log(res.data);
+                if (res.data.deletedCount > 0) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: `${tasks.title} has been deleted.`,
+                        icon: "success"
+                    });
+                    refetch();
+                }
+            }
+        });
+    }
+
+
+
     return (
         <div className="bg-slate-100 rounded-xl p-4 mt-2 mx-3">
-            <h2>{title}</h2>
+            <div className="flex justify-between items-center">
+                <h2>{title}</h2>
+                <button onClick={() => handleDelete(_id)} className="btn text-2xl text-red-700">
+                    <FaTrash />
+                </button>
+            </div>
+
             <p>{description} </p>
+
+            <div className="flex justify-between items-center">
+                <p>{deadline} </p>
+                <button className="btn text-2xl text-blue-700">
+                    <FaEdit />
+                </button>
+            </div>
+
             <p>{priority} </p>
+
         </div>
     );
 };
