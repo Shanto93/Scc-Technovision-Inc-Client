@@ -11,7 +11,7 @@ const useTasks = () => {
             return res.data;
         }
     })
-    return [tasks, loading, refetch]
+    return [refetch, tasks, loading];
     
 };
 

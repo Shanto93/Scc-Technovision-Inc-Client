@@ -1,15 +1,18 @@
 /* eslint-disable react/prop-types */
 import { FaTrash, FaEdit } from "react-icons/fa";
-import useTasks from "../../../../hooks/useTasks";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import useTasks from './../../../../hooks/useTasks';
+import { Link } from "react-router-dom";
 
 
 const ToDoLayout = ({ task }) => {
     const { _id, title, description, priority, deadline } = task;
 
-    const [tasks, , refetch] = useTasks();
+    // const [tasks,  , refetch] = useTasks();
+    const [refetch, tasks] = useTasks();
     const axiosPublic = useAxiosPublic();
+    console.log(tasks);
 
     const handleDelete = (_id) => {
         Swal.fire({
@@ -25,12 +28,13 @@ const ToDoLayout = ({ task }) => {
                 const res = await axiosPublic.delete(`/tasks/${_id}`);
                 console.log(res.data);
                 if (res.data.deletedCount > 0) {
+                    refetch();
                     Swal.fire({
                         title: "Deleted!",
                         text: `${tasks.title} has been deleted.`,
                         icon: "success"
                     });
-                    refetch();
+
                 }
             }
         });
@@ -51,9 +55,11 @@ const ToDoLayout = ({ task }) => {
 
             <div className="flex justify-between items-center">
                 <p>{deadline} </p>
-                <button className="btn text-2xl text-blue-700">
-                    <FaEdit />
-                </button>
+                <Link to={`/dashboard/updateTasks/${_id}`}>
+                    <button className="btn text-2xl text-blue-700">
+                        <FaEdit />
+                    </button>
+                </Link>
             </div>
 
             <p>{priority} </p>
